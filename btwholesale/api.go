@@ -32,11 +32,20 @@ func LookupTelephone(telno string) BTWholeBoi {
 	return boi
 }
 
-func LookupAddress(postCode, town, street, buildingNumber, buildingName string) AddressLookup {
+func LookupAddress(postCode, town, street, buildingNumber, buildingName string) (*AddressLookup, *BTWholeBoi) {
 	var addy AddressLookup
 	data := decryptBtWhole(getData("request1", postCode, town, "", street, buildingNumber, buildingName, ""))
+	if data == nil {
+		return nil, nil
+	}
+	//log.Println(string(data))
 	json.Unmarshal(data, &addy)
-	return addy
+	if !addy.AddressMismatch {
+		var boi BTWholeBoi
+		json.Unmarshal(data, &boi)
+		return nil, &boi
+	}
+	return &addy, nil
 }
 
 func getData(requestType, postCode, town, refNumber, street, buildingNumber, buildingName, districtId string) string {

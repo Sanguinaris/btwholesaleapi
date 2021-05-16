@@ -14,9 +14,15 @@ func lookup_postcode(c *gin.Context) {
 	buildingName := c.Query("buildingName")
 	postCode := c.Param("postCode")
 
-	lookup := btwholesale.LookupAddress(postCode, town, street, buildingNumber, buildingName)
+	lookup, boi := btwholesale.LookupAddress(postCode, town, street, buildingNumber, buildingName)
 
-	c.JSON(http.StatusOK, lookup)
+	if lookup != nil {
+		c.JSON(http.StatusOK, lookup)
+	} else if boi != nil {
+		c.JSON(http.StatusOK, boi)
+	} else {
+		c.JSON(http.StatusInternalServerError, nil)
+	}
 }
 
 func get_data_via_full_info(c *gin.Context) {
