@@ -172,6 +172,106 @@ type AdslTableFlag struct {
 	AdslTableLeftJumper         string
 }
 
+type Technology struct {
+	PointToPointFibre string
+	FTTPBrownfield    string
+	Copper            string
+	FTTPGreenfield    string
+}
+
+type Address struct {
+	DistrictCode          string
+	ExchangeGroupCode     string
+	Qualifier             string
+	RefNumber             string
+	Technology            Technology
+	TechnologyRestriction Technology
+	Location              string
+}
+
+type BritishAddress struct {
+	PostCode           string
+	PostTown           string
+	PremisesName       string
+	ThoroughfareName   string
+	SubPremisesName    string
+	ThoroughfareNumber string
+	OrganisationName   string
+	Locality           string
+}
+
+type Coordinates struct {
+	Easting   string
+	Northing  string
+	Latitude  string
+	Longitude string
+}
+
+type AddressObjectList struct {
+	Address                Address
+	BritishAddress         BritishAddress
+	Coordinates            Coordinates
+	ParentUPRN             string
+	SiteClassification     string
+	SiteClassificationCode string
+	CompletionCode         string
+	ErrorMessage           string
+	Uprn                   string
+}
+
+type AddressLookup struct {
+	AddressMismatch      bool
+	Nad                  string
+	NadKey               string
+	BuildingNumber       string
+	BuildingName         string
+	Street               string
+	Town                 string
+	PostCode             string
+	Uprn                 string
+	EsbResponse          string
+	ResultStatus         string
+	ResultText           string
+	MarketSplit          string
+	NetworkType          string
+	ErrorId              string
+	Exchange             string
+	CabinetNumber        string
+	ExchangeDistrictID   string
+	ExchangeCode         string
+	ExchangeName         string
+	ExchangeBMF          string
+	FttpPriorityExchange string
+	WlrWithdrawal        string
+	SotapRestriction     string
+	V1                   string
+	V4                   string
+	W6                   string
+	W7                   string
+	F1                   string
+	F2                   string
+	V2                   string
+	V3                   string
+	V7                   string
+	W4                   string
+	W10                  string
+	W3                   string
+	W8                   string
+	W11                  string
+	W9                   string
+	W12                  string
+	ListOfOpenOprder     string // misspelled, nice
+	OrderTargetDate      string
+	OrderType            string
+	MpaReadStartTime     string
+	MpaReadEndTime       string
+	OrReadStartTime      int
+	OrReadEndTime        int
+	AddressObjectList    []AddressObjectList
+	ApigwTrackingHeader  string
+	Location             string
+}
+
 type BTWholeBoi struct {
 	ErrorId                  int
 	TelephoneNumber          string
