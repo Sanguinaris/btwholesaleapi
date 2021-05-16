@@ -4,13 +4,12 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/joho/godotenv"
+	"github.com/Sanguinaris/btwholesaleapi/api"
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	godotenv.Load()
-
+	api.Start()
 	//boi := btwholesale.BTBroadBandChecker()
 	//log.Println(boi)
 }

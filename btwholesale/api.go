@@ -2,12 +2,11 @@ package btwholesale
 
 import (
 	"encoding/json"
-	"os"
 )
 
-func BTBroadBandChecker() BTWholeBoi {
+func BTBroadBandChecker(postCode, town, refNumber, street, buildingNumber, buildingName, districtId string) BTWholeBoi {
 	var boi BTWholeBoi
-	data := decryptBtWhole(getData("request2", os.Getenv("postCode"), os.Getenv("town"), os.Getenv("refNumber"), os.Getenv("street"), os.Getenv("buildingNumber"), os.Getenv("buildingName"), os.Getenv("districtId")))
+	data := decryptBtWhole(getData("request2", postCode, town, refNumber, street, buildingNumber, buildingName, districtId))
 	json.Unmarshal(data, &boi)
 	return boi
 }
@@ -33,9 +32,9 @@ func LookupTelephone(telno string) BTWholeBoi {
 	return boi
 }
 
-func LookupAddress(postCode string) AddressLookup {
+func LookupAddress(postCode, town, street, buildingNumber, buildingName string) AddressLookup {
 	var addy AddressLookup
-	data := decryptBtWhole(getData("request1", postCode, "", "", "", "", "", ""))
+	data := decryptBtWhole(getData("request1", postCode, town, "", street, buildingNumber, buildingName, ""))
 	json.Unmarshal(data, &addy)
 	return addy
 }
