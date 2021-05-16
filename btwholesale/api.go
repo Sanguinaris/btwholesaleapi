@@ -9,10 +9,14 @@ import (
 )
 
 func BTBroadBandChecker() BTWholeBoi {
-	return deDaDiDo(decryptBtWhole(getData()))
+	return deDaDiDo(decryptBtWhole(getData("request2", os.Getenv("postCode"), os.Getenv("town"), os.Getenv("refNumber"), os.Getenv("street"), os.Getenv("buildingNumber"), os.Getenv("buildingName"), os.Getenv("districtId"))))
 }
 
-func getData() string {
+func LookupAddress(postCode string) string {
+	return string(decryptBtWhole(getData("request1", postCode, "", "", "", "", "", "")))
+}
+
+func getData(requestType, postCode, town, refNumber, street, buildingNumber, buildingName, districtId string) string {
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", "https://api.wholesale.bt.com/bt-wholesale/v1/broadband/coverage/anonymous", nil)
@@ -34,7 +38,7 @@ func getData() string {
 	req.Header.Add("Origin", "https://www.broadbandchecker.btwholesale.com")
 	req.Header.Add("Referer", "https://www.broadbandchecker.btwholesale.com/")
 
-	req.Header.Add("requestType", "request2")
+	req.Header.Add("requestType", requestType)
 	req.Header.Add("Authorization", "Basic MjFuZ0dHNks0bk9NY3gybEpzWkpWUFZZQXlZdTJIV3Y6Vjd1M1FQT2xITXF2TFRKbA==")
 	uniqueThing := generateUniqueString()
 	trackCap := encryptUniqueString(uniqueThing + createCaptcha())
@@ -43,13 +47,13 @@ func getData() string {
 	req.Header.Add("AuthTrackCap", trackCap)
 	req.Header.Add("requestTime", time.Now().Format("2006-01-02 15:04:05"))
 
-	req.Header.Add("postCode", os.Getenv("postCode"))
-	req.Header.Add("town", os.Getenv("town"))
-	req.Header.Add("refNumber", os.Getenv("refNumber"))
-	req.Header.Add("street", os.Getenv("street"))
-	req.Header.Add("buildingNumber", os.Getenv("buildingNumber"))
-	req.Header.Add("buildingName", os.Getenv("buildingName"))
-	req.Header.Add("districtId", os.Getenv("districtId"))
+	req.Header.Add("postCode", postCode)
+	req.Header.Add("town", town)
+	req.Header.Add("refNumber", refNumber)
+	req.Header.Add("street", street)
+	req.Header.Add("buildingNumber", buildingNumber)
+	req.Header.Add("buildingName", buildingName)
+	req.Header.Add("districtId", districtId)
 
 	resp, err := client.Do(req)
 

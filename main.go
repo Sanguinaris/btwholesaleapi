@@ -15,4 +15,7 @@ func main() {
 
 	boi := btwholesale.BTBroadBandChecker()
 	log.Println(boi)
+
+	kek := btwholesale.LookupAddress("SW1P 3PA")
+	log.Println(kek)
 }

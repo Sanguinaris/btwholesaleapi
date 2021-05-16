@@ -59,8 +59,6 @@ func generateUniqueString() string {
 
 	concat := day + month + year + hours + minutes + seconds
 
-	log.Println(concat)
-
 	lol := "0." + strings.ToLower(base36.Encode(uint64(rand.Intn(99999999999999999-1000000000000000)+1000000000000000)))
 	uniqueBois := []byte{}
 	for i := range lol {
@@ -117,8 +115,6 @@ func decryptBtWhole(data string) []byte {
 	}
 
 	clear := decrypt(ciphertext, key)
-
-	log.Println(string(clear))
 	return clear
 }
 
