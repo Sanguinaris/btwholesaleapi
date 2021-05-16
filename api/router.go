@@ -15,5 +15,5 @@ func Start() {
 	r.GET("/lookup/uprn/:uprn", get_data_via_uprn)
 	r.GET("/lookup/telno/:telno", get_data_via_telno)
 	r.GET("/lookup/alid/:alid", get_data_via_alid)
-	r.Run()
+	r.Run("127.0.0.1:42069")
 }
